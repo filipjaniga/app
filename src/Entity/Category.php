@@ -57,11 +57,24 @@ class Category
      *
      * @ORM\Column(
      *     type="string",
-     *     length=64,
+     *     length=266,
      * )
      */
     private $title;
 
+    /**
+     * Code.
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     type="string",
+     *     length=266,
+     * )
+     *
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $code;
 
 
     /**
@@ -161,6 +174,18 @@ class Category
                 $task->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }
