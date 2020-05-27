@@ -76,6 +76,16 @@ class Category
      */
     private $code;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="category")
+     */
+    private $recipes;
+
+    public function __construct()
+    {
+        $this->recipes = new ArrayCollection();
+    }
+
 
     /**
      * Getter for Id.
@@ -148,30 +158,30 @@ class Category
     }
 
     /**
-     * @return Collection|Task[]
+     * @return Collection|Recipe[]
      */
-    public function getTasks(): Collection
+    public function getRecipes(): Collection
     {
-        return $this->tasks;
+        return $this->recipes;
     }
 
-    public function addTask(Task $task): self
+    public function addRecipe(Recipe $recipe): self
     {
-        if (!$this->tasks->contains($task)) {
-            $this->tasks[] = $task;
-            $task->setCategory($this);
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes[] = $recipe;
+            $recipe->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeTask(Task $task): self
+    public function removeRecipe(Recipe $recipe): self
     {
-        if ($this->tasks->contains($task)) {
-            $this->tasks->removeElement($task);
+        if ($this->recipes->contains($recipe)) {
+            $this->recipes->removeElement($recipe);
             // set the owning side to null (unless already changed)
-            if ($task->getCategory() === $this) {
-                $task->setCategory(null);
+            if ($recipe->getCategory() === $this) {
+                $recipe->setCategory(null);
             }
         }
 

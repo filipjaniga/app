@@ -53,6 +53,12 @@
             </tbody>
         </table>
 
+        <p>
+            <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'recipe_view'|trans }}
+            </a>
+        </p>
+
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>

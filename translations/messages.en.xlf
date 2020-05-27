@@ -78,7 +78,18 @@
                  <source>title_category_list</source>
                  <target>Lista kategorii</target>
             </trans-unit>
-
+            <trans-unit id="title_recipe_list">
+                 <source>title_recipe_list</source>
+                 <target>Lista przepisów</target>
+            </trans-unit>
+            <trans-unit id="category_view">
+                 <source>category_view</source>
+                 <target>Lista kategorii</target>
+            </trans-unit>
+            <trans-unit id="recipe_view">
+                 <source>recipe_view</source>
+                 <target>Lista przepisów</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
