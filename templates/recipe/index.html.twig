@@ -58,7 +58,13 @@
 
     {% else %}
         <p>
-            {{ 'message_empty_list'|trans }}
+            <a href="{{ url('recipe_create') }}" title="{{ 'create_view'|trans }}">
+                {{ 'create_view'|trans }}
+            </a>
         </p>
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message.empty_list'|trans
+        } %}
     {% endif %}
 {% endblock %}

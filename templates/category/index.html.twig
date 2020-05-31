@@ -68,9 +68,10 @@
 
 
     {% else %}
-        <p>
-            {{ 'message_empty_list'|trans }}
-        </p>
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message.empty_list'|trans
+        } %}
     {% endif %}
 {% endblock %}
 
