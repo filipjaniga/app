@@ -8,6 +8,11 @@
     <h1>{{ 'title_recipe_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
 
+        <p>
+        <a href="{{ url('recipe_create') }}" title="{{ 'create_view'|trans }}">
+            {{ 'create_view'|trans }}
+        </a>
+        </p>
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
@@ -30,6 +35,12 @@
                     <td>
                         <a href="{{ url('recipe_show', {id: recipe.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
+                        </a>
+                        <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'delete_view'|trans }}">
+                            {{ 'delete_view'|trans }}
+                        </a>
+                        <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'edit_view'|trans }}">
+                            {{ 'edit_view'|trans }}
                         </a>
                     </td>
                 </tr>
