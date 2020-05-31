@@ -60,7 +60,7 @@
             </trans-unit>
             <trans-unit id="title_category_details">
                  <source>title_category_details</source>
-                 <target>Szczegóły kategorii </target>
+                 <target>Szczegóły kategorii #%id%</target>
             </trans-unit>
             <trans-unit id="category_create">
                  <source>category_create</source>

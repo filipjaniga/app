@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="#">Książka kucharska</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('recipe_index') }}" title="{{ 'recipe_view'|trans }}">
+                {{ 'recipe_view'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('category_index') }}" title="{{ 'category_view'|trans }}">
+                {{ 'category_view'|trans }}
+            </a>
+        </li>
+    </ul>
+</nav>

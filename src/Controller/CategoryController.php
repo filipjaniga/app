@@ -77,14 +77,13 @@ class CategoryController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\CategoryRepository $categoryRepository Category repository
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws Exception
      *
      * @Route(
      *     "/create",
@@ -99,9 +98,9 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setCreatedAt(new \DateTime());
+            $category->setUpdatedAt(new \DateTime());
             $categoryRepository->save($category);
-
-            $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('category_index');
         }

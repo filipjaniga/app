@@ -1,19 +1,25 @@
 <?php
+/**
+ * Category entity.
+ */
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use DateTimeInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Category.
  *
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
+ *
+ * @UniqueEntity(fields={"title"})
  */
 class Category
 {
@@ -34,8 +40,6 @@ class Category
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
-     *
-     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -45,8 +49,6 @@ class Category
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
-     *
-     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -57,10 +59,11 @@ class Category
      *
      * @ORM\Column(
      *     type="string",
-     *     length=266,
+     *     length=64,
      * )
      */
     private $title;
+
 
     /**
      * Code.
@@ -69,12 +72,13 @@ class Category
      *
      * @ORM\Column(
      *     type="string",
-     *     length=266,
+     *     length=64
      * )
      *
      * @Gedmo\Slug(fields={"title"})
      */
     private $code;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="category")
