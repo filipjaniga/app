@@ -5,10 +5,12 @@
 
 namespace App\Form;
 
-use App\Entity\Recipe;
 use App\Entity\Category;
-use Symfony\Component\Form\AbstractType;
+use App\Entity\Recipe;
+use App\Repository\RecipeRepository;
+use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +20,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class RecipeType extends AbstractType
 {
+    /**
+     * Tags data transformer.
+     *
+     * @var \App\Form\DataTransformer\TagsDataTransformer
+     */
+    private $tagsDataTransformer;
+
+    /**
+     * RecipeType constructor.
+     *
+     * @param \App\Form\DataTransformer\TagsDataTransformer $tagsDataTransformer Tags data transformer
+     */
+    public function __construct(TagsDataTransformer $tagsDataTransformer)
+    {
+        $this->tagsDataTransformer = $tagsDataTransformer;
+    }
+
     /**
      * Builds the form.
      *
@@ -39,20 +58,11 @@ class RecipeType extends AbstractType
                 'required' => true,
                 'attr' => ['max_length' => 64],
             ]
-        )
-            ->add(
-                'content',
-                TextType::class,
-                [
-                    'label' => 'label_content',
-                    'required' => true,
-                    'attr' => ['max_length' => 50000],
-                ]
-            )
-            ->add(
-                'category',
-                EntityType::class,
-                [
+        );
+        $builder->add(
+            'category',
+            EntityType::class,
+            [
                 'class' => Category::class,
                 'choice_label' => function ($category) {
                     return $category->getTitle();
@@ -61,7 +71,29 @@ class RecipeType extends AbstractType
                 'placeholder' => 'label_none',
                 'required' => true,
             ]
-            );
+        );
+        $builder->add(
+            'content',
+            TextType::class,
+            [
+                'label' => 'label_content',
+                'required' => true,
+                'attr' => ['max_length' => 50000],
+            ]
+        );
+        $builder->add(
+            'tags',
+            TextType::class,
+            [
+                'label' => 'label_tags',
+                'required' => false,
+                'attr' => ['max_length' => 128],
+            ]
+        );
+
+        $builder->get('tags')->addModelTransformer(
+            $this->tagsDataTransformer
+        );
     }
 
     /**

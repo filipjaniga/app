@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -43,10 +45,36 @@ class Recipe
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
+     * Category.
+     *
+     * @var \App\Entity\Category Category
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="App\Entity\Category",
+     *     inversedBy="recipes",
+     * )
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * Tags.
+     *
+     * @var array
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="App\Entity\Tag",
+     *     inversedBy="recipes",
+     *     orphanRemoval=true
+     * )
+     * @ORM\JoinTable(name="recipes_tags")
+     */
+    private $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
 
     /**
@@ -121,5 +149,41 @@ class Recipe
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * Getter for tags.
+     *
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\Tag[] Tags collection
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag to collection.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     */
+    public function addTag(Tag $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+    }
+
+
+
+    /**
+     * Remove tag from collection.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     */
+    public function removeTag(Tag $tag): void
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
     }
 }

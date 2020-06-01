@@ -23,6 +23,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'recipe.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'recipe.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_category'|trans, 'category.title') }}</th>
+                <th>{{ 'tags'|trans }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
@@ -32,6 +33,12 @@
                     <td>{{ recipe.id }}</td>
                     <td>{{ recipe.title }}</td>
                     <td>{{ recipe.category.title }}</td>
+                    <td> {% if recipe.tags|length %}
+                        {% for tag in recipe.tags %}
+                            <span>{{ tag.title }},</span>
+                        {% endfor %}
+                    </td>
+                    {% endif %}
                     <td>
                         <a href="{{ url('recipe_show', {id: recipe.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}

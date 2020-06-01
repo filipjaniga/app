@@ -16,6 +16,8 @@
             <dd>{{  recipe.title }}</dd>
             <dt>{{ 'label_content'|trans }}</dt>
             <dd>{{  recipe.content }}</dd>
+            <dt>{{ 'label_tag'|trans }}</dt>
+            <dd>{{  recipe.tags.title }}</dd>
         </dl>
         <p>
             <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
