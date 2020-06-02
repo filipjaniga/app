@@ -40,6 +40,10 @@ class Category
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -49,6 +53,10 @@ class Category
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -60,6 +68,13 @@ class Category
      * @ORM\Column(
      *     type="string",
      *     length=64,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
      * )
      */
     private $title;
@@ -75,13 +90,28 @@ class Category
      *     length=64
      * )
      *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
+     * )
+     *
      * @Gedmo\Slug(fields={"title"})
      */
     private $code;
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="category")
+     * Recipes.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Recipe[] $recipes Recipes
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Recipe",
+     *     mappedBy="category",
+     * )
+     *
+     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $recipes;
 
