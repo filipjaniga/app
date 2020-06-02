@@ -83,4 +83,5 @@ class TagsDataTransformer implements DataTransformerInterface
 
         return $tags;
     }
+
 }
