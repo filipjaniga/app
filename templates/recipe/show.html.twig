@@ -16,9 +16,27 @@
             <dd>{{  recipe.title }}</dd>
             <dt>{{ 'label_content'|trans }}</dt>
             <dd>{{  recipe.content }}</dd>
-            <dt>{{ 'label_tag'|trans }}</dt>
-            <dd>{{  recipe.tags.title }}</dd>
+            <dt>{{ 'tags'|trans }}</dt>
+            <dd>
+                {% for tag in recipe.tags %}
+                    <span>{{ tag.title }}</span>
+                {% endfor %}
+            </dd>
         </dl>
+
+            {% if form is defined %}
+            <div class="container">
+                <h5>{{ 'title_comment_new'|trans }}</h5>
+                {{ form_start(form, { method: 'POST', action: url('comment_create', {id: recipe.getId()}) }) }}
+                {{ form_widget(form) }}
+                <div class="form-group row float-sm-right">
+                    <input type="submit" value="{{ 'action_save'|trans }}" class="btn btn-primary" />
+                </div>
+                    {{ form_end(form) }}
+            </div>
+            {% endif %}
+
+
         <p>
             <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
                 {{ 'action_back_to_list'|trans }}

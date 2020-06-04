@@ -1,4 +1,7 @@
 <?php
+/**
+ * Recipe entity.
+ */
 
 namespace App\Entity;
 
@@ -8,7 +11,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * Class Recipe.
@@ -49,6 +51,8 @@ class Recipe
     private $title;
 
     /**
+     * Content.
+     *
      * @ORM\Column(type="string", length=430000)
      *
      * @Assert\Type(type="string")
@@ -60,6 +64,8 @@ class Recipe
      */
     private $content;
 
+
+
     /**
      * Category.
      *
@@ -68,6 +74,7 @@ class Recipe
      * @ORM\ManyToOne(
      *     targetEntity="App\Entity\Category",
      *     inversedBy="recipes",
+     *     fetch="EXTRA_LAZY"
      * )
      * @ORM\JoinColumn(nullable=false)
      */
@@ -81,15 +88,34 @@ class Recipe
      * @ORM\ManyToMany(
      *     targetEntity="App\Entity\Tag",
      *     inversedBy="recipes",
-     *     orphanRemoval=true
+     *     orphanRemoval=true,
+     *     fetch="EXTRA_LAZY"
      * )
      * @ORM\JoinTable(name="recipes_tags")
      */
     private $tags;
 
+    /**
+     * Comments.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Comment[] Comments
+     *
+     * @Assert\All({
+     *     @Assert\Type(type="App\Entity\Comment"),
+     * })
+     *
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="recipe", orphanRemoval=true)
+     */
+    private $comments;
+
+
+    /**
+     * Recipe constructor.
+     */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
 
@@ -200,6 +226,47 @@ class Recipe
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
+        }
+    }
+
+    /**
+     * Getter for Comment.
+     *
+     * @return Collection|Comment[]
+     */
+    public function getComment(): Collection
+    {
+        return $this->comments;
+    }
+
+
+    /**
+     * Add comment to collection.
+     *
+     * @param Comment $comment Comment
+     */
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setRecipe($this);
+        }
+    }
+
+    /**
+     * Remove comment from collection.
+     *
+     * @param Comment $comment Comment
+     */
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getRecipe() === $this) {
+                $comment->setRecipe(null);
+            }
         }
     }
 }
