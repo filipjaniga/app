@@ -94,6 +94,16 @@ class Recipe
      */
     private $tags;
 
+    /**
+     * Author.
+     *
+     * @var App\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
 
 
     /**
@@ -213,6 +223,18 @@ class Recipe
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
         }
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 
 }
