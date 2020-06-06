@@ -65,7 +65,6 @@ class Recipe
     private $content;
 
 
-
     /**
      * Category.
      *
@@ -95,18 +94,6 @@ class Recipe
      */
     private $tags;
 
-    /**
-     * Comments.
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Comment[] Comments
-     *
-     * @Assert\All({
-     *     @Assert\Type(type="App\Entity\Comment"),
-     * })
-     *
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="recipe", orphanRemoval=true)
-     */
-    private $comments;
 
 
     /**
@@ -216,7 +203,6 @@ class Recipe
     }
 
 
-
     /**
      * Remove tag from collection.
      *
@@ -229,44 +215,6 @@ class Recipe
         }
     }
 
-    /**
-     * Getter for Comment.
-     *
-     * @return Collection|Comment[]
-     */
-    public function getComment(): Collection
-    {
-        return $this->comments;
-    }
-
-
-    /**
-     * Add comment to collection.
-     *
-     * @param Comment $comment Comment
-     */
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setRecipe($this);
-        }
-    }
-
-    /**
-     * Remove comment from collection.
-     *
-     * @param Comment $comment Comment
-     */
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getRecipe() === $this) {
-                $comment->setRecipe(null);
-            }
-        }
-    }
 }
+
+

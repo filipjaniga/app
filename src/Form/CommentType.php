@@ -1,14 +1,14 @@
 <?php
 /**
- * Comment type.
+ *Comment type.
  */
 
 namespace App\Form;
 
 use App\Entity\Comment;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,8 +17,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CommentType extends AbstractType
 {
-
-
     /**
      * Builds the form.
      *
@@ -33,7 +31,25 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'value',
+            'nick',
+            TextType::class,
+            [
+                'label' => 'label_nick',
+                'required' => true,
+                'attr' => ['max_length' => 64],
+            ]
+        );
+        $builder->add(
+            'email',
+            TextType::class,
+            [
+                'label' => 'label_email',
+                'required' => true,
+                'attr' => ['max_length' => 64],
+            ]
+        );
+        $builder->add(
+            'content',
             TextareaType::class,
             [
                 'label' => 'label_content',
@@ -63,6 +79,6 @@ class CommentType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'comments';
+        return 'comment';
     }
 }

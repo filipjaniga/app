@@ -5,14 +5,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Recipe;
-use App\Form\CommentType;
 use App\Form\RecipeType;
-use App\Repository\CommentRepository;
-use App\Repository\RecipeRepository;
+use App\Service\RecipeService;
 use Exception;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
@@ -27,11 +23,28 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 class RecipeController extends AbstractController
 {
     /**
+     * Recipe service.
+     *
+     * @var \App\Service\RecipeService
+     */
+
+    private $recipeService;
+
+    /**
+     * RecipeController constructor.
+     *
+     * @param \App\Service\RecipeService $recipeService Recipe service
+     */
+    public function __construct(RecipeService $recipeService)
+    {
+        $this->recipeService = $recipeService;
+    }
+
+
+    /**
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request          HTTP request
-     * @param \App\Repository\RecipeRepository          $recipeRepository Recipe repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator        Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -40,13 +53,10 @@ class RecipeController extends AbstractController
      *     name="recipe_index",
      * )
      */
-    public function index(Request $request, RecipeRepository $recipeRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $recipeRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            RecipeRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->recipeService->createPaginatedList($page);
 
         return $this->render(
             'recipe/index.html.twig',
@@ -81,7 +91,6 @@ class RecipeController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\RecipeRepository $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -95,15 +104,14 @@ class RecipeController extends AbstractController
      *     name="recipe_create",
      * )
      */
-    public function create(Request $request, RecipeRepository $recipeRepository): Response
+    public function create(Request $request): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipeRepository->save($recipe);
-
+            $this->recipeService->save($recipe);
             $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('recipe_index');
@@ -121,7 +129,6 @@ class RecipeController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Recipe                      $recipe           Recipe entity
-     * @param \App\Repository\RecipeRepository        $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -135,7 +142,7 @@ class RecipeController extends AbstractController
      *     name="recipe_delete",
      * )
      */
-    public function delete(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
+    public function delete(Request $request, Recipe $recipe): Response
     {
         $form = $this->createForm(RecipeType::class, $recipe, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -145,7 +152,7 @@ class RecipeController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipeRepository->delete($recipe);
+            $this->recipeService->delete($recipe);
             $this->addFlash('success', 'message.deleted_successfully');
 
             return $this->redirectToRoute('recipe_index');
@@ -165,7 +172,6 @@ class RecipeController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Recipe                      $recipe           Recipe entity
-     * @param \App\Repository\RecipeRepository        $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -179,14 +185,13 @@ class RecipeController extends AbstractController
      *     name="recipe_edit",
      * )
      */
-    public function edit(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
+    public function edit(Request $request, Recipe $recipe): Response
     {
         $form = $this->createForm(RecipeType::class, $recipe, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipeRepository->save($recipe);
-
+            $this->recipeService->save($recipe);
             $this->addFlash('success', 'message_updated_successfully');
 
             return $this->redirectToRoute('recipe_index');
