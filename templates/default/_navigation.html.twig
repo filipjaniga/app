@@ -16,5 +16,19 @@
             </a>
         </li>
         {% endif %}
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li class="nav-item">
+               <span class="navbar-text">
+                    Logged as:  {{ app.user.email }}
+                   <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
+               </span>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
+            </li>
+        {% endif %}
+
     </ul>
 </nav>
