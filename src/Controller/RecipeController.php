@@ -8,13 +8,10 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Service\RecipeService;
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 /**
  * Class RecipeController.
  *
@@ -50,13 +47,18 @@ class RecipeController extends AbstractController
      *
      * @Route(
      *     "/",
+     *     methods={"GET"},
      *     name="recipe_index",
      * )
      */
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
-        $pagination = $this->recipeService->createPaginatedList($page);
+
+        $pagination = $this->recipeService->createPaginatedList(
+            $page,
+            $request->query->get('filters', [])
+        );
 
         return $this->render(
             'recipe/index.html.twig',
@@ -111,7 +113,6 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipe->setAuthor($this->getUser());
             $this->recipeService->save($recipe);
             $this->addFlash('success', 'message_created_successfully');
 

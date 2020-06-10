@@ -32,7 +32,11 @@
                 <tr>
                     <td>{{ recipe.id }}</td>
                     <td>{{ recipe.title }}</td>
-                    <td>{{ recipe.category.title }}</td>
+                    <td>
+                        <a href="{{ url('recipe_index', {'filters' : {'category' : recipe.category.id}}) }}" title="{{ recipe.category.title }}">
+                            {{ recipe.category.title }}
+                        </a>
+                    </td>
                     <td> {% if recipe.tags|length %}
                         {% for tag in recipe.tags %}
                             <span>{{ tag.title }}</span>

@@ -1,21 +1,21 @@
 <?php
 /**
- *Comment type.
+ * Password Change type.
  */
 
 namespace App\Form;
 
-use App\Entity\Comment;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class CommentType.
+ * Class PasswordChangeType.
  */
-class CommentType extends AbstractType
+class PasswordChangeType extends AbstractType
 {
     /**
      * Builds the form.
@@ -31,30 +31,14 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'nick',
-            TextType::class,
+            'password',
+            RepeatedType::class,
             [
-                'label' => 'label_nick',
+                'type' => PasswordType::class,
+                'first_options'  => ['label' => 'password'],
+                'second_options' => ['label' => 'password_repeat'],
                 'required' => true,
-                'attr' => ['max_length' => 64],
-            ]
-        );
-        $builder->add(
-            'email',
-            TextType::class,
-            [
-                'label' => 'label_email',
-                'required' => true,
-                'attr' => ['max_length' => 64],
-            ]
-        );
-        $builder->add(
-            'content',
-            TextareaType::class,
-            [
-                'label' => 'label_content',
-                'required' => true,
-                'attr' => ['max_length' => 255],
+                'invalid_message' => 'You entered an invalid value'
             ]
         );
     }
@@ -66,7 +50,7 @@ class CommentType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Comment::class]);
+        $resolver->setDefaults(['data_class' => User::class]);
     }
 
     /**
@@ -79,6 +63,6 @@ class CommentType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'comment';
+        return 'user_password_change';
     }
 }

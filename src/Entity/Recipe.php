@@ -79,6 +79,8 @@ class Recipe
      */
     private $category;
 
+
+
     /**
      * Tags.
      *
@@ -112,7 +114,6 @@ class Recipe
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->comments = new ArrayCollection();
     }
 
 
