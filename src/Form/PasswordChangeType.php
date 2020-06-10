@@ -35,8 +35,8 @@ class PasswordChangeType extends AbstractType
             RepeatedType::class,
             [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'password'],
-                'second_options' => ['label' => 'password_repeat'],
+                'first_options'  => ['label' => 'new_password'],
+                'second_options' => ['label' => 'new_password_repeat'],
                 'required' => true,
                 'invalid_message' => 'You entered an invalid value'
             ]
