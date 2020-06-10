@@ -34,7 +34,11 @@
                     <td>{{ category.id }}</td>
                     <td>{{ category.createdAt|date('Y/m/d') }}</td>
                     <td>{{ category.updatedAt|date('Y/m/d') }}</td>
-                    <td>{{ category.title }}</td>
+                    <td>
+                        <a href="{{ url('recipe_index', {'filters' : {'category' : category.id}}) }}" title="{{ category.title }}">
+                            {{ category.title }}
+                        </a>
+                    </td>
                     <td>
                         <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
