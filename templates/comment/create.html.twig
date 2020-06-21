@@ -1,0 +1,10 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'comments_add',
+    attr: {
+        method: 'POST',
+        action: url('comment_create', {id: recipe.id})
+    },
+    form: form,
+    submit_label: 'comment_add'|trans,
+    back_to_list_path: 'recipe_index',
+} %}

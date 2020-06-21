@@ -41,7 +41,6 @@ class Category
      *
      * @ORM\Column(type="datetime")
      *
-     * @Assert\DateTime
      *
      * @Gedmo\Timestampable(on="create")
      */
@@ -54,7 +53,6 @@ class Category
      *
      * @ORM\Column(type="datetime")
      *
-     * @Assert\DateTime
      *
      * @Gedmo\Timestampable(on="update")
      */
@@ -111,7 +109,6 @@ class Category
      *     mappedBy="category",
      * )
      *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $recipes;
 

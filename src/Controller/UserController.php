@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\PasswordChangeType;
+use App\Service\UserService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 /**
  * Class UserController.
@@ -22,15 +24,34 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * @Route(
  *     "/user"
  * )
+ *
  */
 class UserController extends AbstractController
 {
+
+    /**
+     * User service.
+     *
+     * @var \App\Service\UserService
+     */
+    private $userService;
+
+    /**
+     * UserController constructor.
+     *
+     * @param \App\Service\UserService $userService User service
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+
     /**
      * Change password action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Entity\User                          $user       User entity
-     * @param \App\Repository\UserRepository            $repository User repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -44,7 +65,7 @@ class UserController extends AbstractController
      * )
 
      */
-    public function changePassword(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(PasswordChangeType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -58,7 +79,7 @@ class UserController extends AbstractController
                     $pass 
                 )
             );
-            $repository->save($user);
+            $this->userService->save($user);
 
             $this->addFlash('success', 'message_updated_successfully');
 
