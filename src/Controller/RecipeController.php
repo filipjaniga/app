@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Service\RecipeService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,6 +104,8 @@ class RecipeController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="recipe_create",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function create(Request $request): Response
     {
@@ -140,6 +143,8 @@ class RecipeController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="recipe_delete",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Recipe $recipe): Response
     {
@@ -183,6 +188,8 @@ class RecipeController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="recipe_edit",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Recipe $recipe): Response
     {
