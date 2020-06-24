@@ -73,7 +73,7 @@ class TagsDataTransformer implements DataTransformerInterface
             if ('' !== trim($tagTitle)) {
                 $tag = $this->repository->findOneByTitle(strtolower($tagTitle));
                 if (null == $tag) {
-                    $tag = new Tag();      
+                    $tag = new Tag();
                     $tag->setTitle($tagTitle);
                     $this->repository->save($tag);
                 }

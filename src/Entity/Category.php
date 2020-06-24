@@ -193,6 +193,7 @@ class Category
         return $this->recipes;
     }
 
+
     /**
      * @param Recipe $recipe
      *
@@ -207,6 +208,7 @@ class Category
 
         return $this;
     }
+
 
     /**
      * @param Recipe $recipe
@@ -226,8 +228,8 @@ class Category
         return $this;
     }
 
-
     /**
+     * Getter for Code.
      * @return string|null
      */
     public function getCode(): ?string
@@ -235,7 +237,9 @@ class Category
         return $this->code;
     }
 
+
     /**
+     * Setter for Code.
      * @param string $code
      *
      * @return $this

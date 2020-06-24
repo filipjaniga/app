@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag Repository.
+ */
 
 namespace App\Repository;
 
@@ -15,6 +18,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TagRepository extends ServiceEntityRepository
 {
+    /**
+     * TagRepository constructor.
+     *
+     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tag::class);

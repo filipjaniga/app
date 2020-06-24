@@ -107,10 +107,11 @@ class CommentController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipeid = $comment->getRecipe()->getId();
             $this->commentService->delete($comment);
             $this->addFlash('success', 'message_deleted_successfully');
 
-            return $this->redirectToRoute('recipe_index');
+            return $this->redirectToRoute('recipe_show', ['id' => $recipeid]);
         }
 
         return $this->render(

@@ -11,15 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * Class SecurityController
- *
+ * Class SecurityController.
  */
-
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
-     *
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

@@ -229,11 +229,7 @@ class Recipe
         return $this->comments;
     }
 
-
     /**
-     *
-     * @param Comment $comment
-     *
      * @return $this
      */
     public function addComment(Comment $comment): self
@@ -247,9 +243,6 @@ class Recipe
     }
 
     /**
-     *
-     * @param Comment $comment
-     *
      * @return $this
      */
     public function removeComment(Comment $comment): self

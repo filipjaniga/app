@@ -64,6 +64,34 @@ class RecipeRepository extends ServiceEntityRepository
     }
 
     /**
+     * Delete record.
+     *
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Recipe $recipe): void
+    {
+        $this->_em->remove($recipe);
+        $this->_em->flush($recipe);
+    }
+
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Recipe $recipe): void
+    {
+        $this->_em->persist($recipe);
+        $this->_em->flush($recipe);
+    }
+
+    /**
      * Apply filters to paginated list.
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
@@ -91,33 +119,5 @@ class RecipeRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('recipe');
-    }
-
-    /**
-     * Delete record.
-     *
-     * @param \App\Entity\Recipe $recipe Recipe entity
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function delete(Recipe $recipe): void
-    {
-        $this->_em->remove($recipe);
-        $this->_em->flush($recipe);
-    }
-
-    /**
-     * Save record.
-     *
-     * @param \App\Entity\Recipe $recipe Recipe entity
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save(Recipe $recipe): void
-    {
-        $this->_em->persist($recipe);
-        $this->_em->flush($recipe);
     }
 }

@@ -8,11 +8,13 @@
     <h1>{{ 'title_recipe_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
 
+        {% if is_granted('ROLE_ADMIN') %}
         <p>
         <a href="{{ url('recipe_create') }}" title="{{ 'create_view'|trans }}">
             {{ 'create_view'|trans }}
         </a>
         </p>
+        {% endif %}
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
