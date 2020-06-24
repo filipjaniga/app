@@ -8,7 +8,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\PasswordChangeType;
 use App\Service\UserService;
-use App\Repository\UserRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 /**
  * Class UserController.
@@ -24,11 +22,9 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
  * @Route(
  *     "/user"
  * )
- *
  */
 class UserController extends AbstractController
 {
-
     /**
      * User service.
      *
@@ -46,24 +42,24 @@ class UserController extends AbstractController
         $this->userService = $userService;
     }
 
-
     /**
      * Change password action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\User                          $user       User entity
+     * @param \Symfony\Component\HttpFoundation\Request                            $request         HTTP request
+     * @param \App\Entity\User                                                     $user            User entity
+     * @param Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder Password Encoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
      * @Route(
      *     "/{id}/password_change",
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_password_change",
      * )
-
      */
     public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -76,7 +72,7 @@ class UserController extends AbstractController
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $pass 
+                    $pass
                 )
             );
             $this->userService->save($user);

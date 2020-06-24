@@ -39,12 +39,11 @@ class CommentController extends AbstractController
         $this->commentService = $commentService;
     }
 
-
     /**
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Recipe                         $recipe Recipe entity
+     * @param \App\Entity\Recipe                        $recipe  Recipe entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -75,7 +74,7 @@ class CommentController extends AbstractController
             'comment/create.html.twig',
             [
                 'recipe' => $recipe,
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]
         );
     }

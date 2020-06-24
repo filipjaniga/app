@@ -36,13 +36,12 @@ class CommentService
      */
     private $categoryService;
 
-
     /**
      * CommentService constructor.
      *
-     * @param \App\Repository\CommentRepository $commentRepository Comment repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
-     * @param \App\Service\CategoryService $categoryService Category service
+     * @param \App\Repository\CommentRepository       $commentRepository Comment repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator         Paginator
+     * @param \App\Service\CategoryService            $categoryService   Category service
      */
     public function __construct(CommentRepository $commentRepository, PaginatorInterface $paginator, CategoryService $categoryService)
     {
@@ -54,7 +53,7 @@ class CommentService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int   $page    Page number
      * @param array $filters Filters array
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list

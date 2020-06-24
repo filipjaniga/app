@@ -94,5 +94,4 @@ class CategoryService
     {
         return $this->categoryRepository->findOneById($id);
     }
-
 }

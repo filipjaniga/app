@@ -42,6 +42,10 @@
                 <b>{{ comment.nick }}</b>
                 {{ comment.email }}
                 <p>{{ comment.content }}
+
+                    <a href="{{ url('comment_delete', {id: comment.id}) }}" title="{{ 'action_delete'|trans }}">
+                        {{ 'action_delete'|trans }}
+                    </a>
             </div>
         {% endfor %}
 

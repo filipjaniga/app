@@ -35,6 +35,7 @@ class RecipeFixtures extends AbstractBaseFixtures implements DependentFixtureInt
                 $recipe->addTag($tag);
             }
             $recipe->setAuthor($this->getRandomReference('users'));
+
             return $recipe;
         });
 

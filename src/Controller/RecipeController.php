@@ -8,10 +8,11 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Service\RecipeService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 /**
  * Class RecipeController.
  *
@@ -24,7 +25,6 @@ class RecipeController extends AbstractController
      *
      * @var \App\Service\RecipeService
      */
-
     private $recipeService;
 
     /**
@@ -37,11 +37,10 @@ class RecipeController extends AbstractController
         $this->recipeService = $recipeService;
     }
 
-
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -88,7 +87,6 @@ class RecipeController extends AbstractController
         );
     }
 
-
     /**
      * Create action.
      *
@@ -125,12 +123,11 @@ class RecipeController extends AbstractController
         );
     }
 
-
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Recipe                      $recipe           Recipe entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Recipe                        $recipe  Recipe entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -172,8 +169,8 @@ class RecipeController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Recipe                      $recipe           Recipe entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Recipe                        $recipe  Recipe entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -207,5 +204,4 @@ class RecipeController extends AbstractController
             ]
         );
     }
-
 }

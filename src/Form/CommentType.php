@@ -38,7 +38,6 @@ class CommentType extends AbstractType
                 'required' => true,
                 'attr' => ['max_length' => 64],
             ]
-
         );
 
         $builder->add(

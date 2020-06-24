@@ -11,22 +11,22 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
-* Class RecipeService.
-*/
+ * Class RecipeService.
+ */
 class RecipeService
 {
     /**
-    * Recipe repository.
-    *
-    * @var \App\Repository\RecipeRepository
-    */
+     * Recipe repository.
+     *
+     * @var \App\Repository\RecipeRepository
+     */
     private $recipeRepository;
 
     /**
-    * Paginator.
-    *
-    * @var \Knp\Component\Pager\PaginatorInterface
-    */
+     * Paginator.
+     *
+     * @var \Knp\Component\Pager\PaginatorInterface
+     */
     private $paginator;
 
     /**
@@ -36,14 +36,12 @@ class RecipeService
      */
     private $categoryService;
 
-
-
     /**
      * RecipeService constructor.
      *
-     * @param \App\Repository\RecipeRepository          $recipeRepository  Recipe repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator       Paginator
-     * @param \App\Service\CategoryService            $categoryService Category service
+     * @param \App\Repository\RecipeRepository        $recipeRepository Recipe repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
+     * @param \App\Service\CategoryService            $categoryService  Category service
      */
     public function __construct(RecipeRepository $recipeRepository, PaginatorInterface $paginator, CategoryService $categoryService)
     {
@@ -55,8 +53,8 @@ class RecipeService
     /**
      * Create paginated list.
      *
-     * @param int                                                 $page    Page number
-     * @param array                                               $filters Filters array
+     * @param int   $page    Page number
+     * @param array $filters Filters array
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
@@ -71,33 +69,31 @@ class RecipeService
         );
     }
 
-        /**
-         * Save recipe.
-         *
-         * @param \App\Entity\Recipe $recipe Recipe entity
-         *
-         * @throws \Doctrine\ORM\ORMException
-         * @throws \Doctrine\ORM\OptimisticLockException
-         */
-        public function save(Recipe $recipe): void
+    /**
+     * Save recipe.
+     *
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Recipe $recipe): void
     {
         $this->recipeRepository->save($recipe);
     }
 
-        /**
-         * Delete recipe.
-         *
-         * @param \App\Entity\Recipe $recipe Recipe entity
-         *
-         * @throws \Doctrine\ORM\ORMException
-         * @throws \Doctrine\ORM\OptimisticLockException
-         */
-        public function delete(Recipe $recipe): void
+    /**
+     * Delete recipe.
+     *
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Recipe $recipe): void
     {
         $this->recipeRepository->delete($recipe);
     }
-
-
 
     /**
      * Prepare filters for the recipes list.
@@ -117,7 +113,6 @@ class RecipeService
                 $resultFilters['category'] = $category;
             }
         }
-
 
         return $resultFilters;
     }

@@ -5,11 +5,9 @@
 
 namespace App\Entity;
 
-use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -64,7 +62,6 @@ class Recipe
      */
     private $content;
 
-
     /**
      * Category.
      *
@@ -78,8 +75,6 @@ class Recipe
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
-
-
 
     /**
      * Tags.
@@ -101,9 +96,6 @@ class Recipe
      */
     private $comments;
 
-
-
-
     /**
      * Recipe constructor.
      */
@@ -112,7 +104,6 @@ class Recipe
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
-
 
     /**
      * Getter for Id.
@@ -129,7 +120,6 @@ class Recipe
      *
      * @return string|null Title
      */
-
     public function getTitle(): ?string
     {
         return $this->title;
@@ -139,6 +129,8 @@ class Recipe
      * Setter for Title.
      *
      * @param string $title Title
+     *
+     * @return $this
      */
     public function setTitle(string $title): self
     {
@@ -160,7 +152,9 @@ class Recipe
     /**
      * Setter for Content.
      *
-     * @param string $title Content
+     * @param string $content Content
+     *
+     * @return $this
      */
     public function setContent(string $content): self
     {
@@ -170,7 +164,9 @@ class Recipe
     }
 
     /**
-     * @return Category|null
+     * Getter for Category.
+     *
+     * @return $this
      */
     public function getCategory(): ?Category
     {
@@ -178,7 +174,10 @@ class Recipe
     }
 
     /**
-     * @param Category|null $category
+     * Setter for Category.
+     *
+     * @param $category Category
+     *
      * @return $this
      */
     public function setCategory(?Category $category): self
@@ -210,7 +209,6 @@ class Recipe
         }
     }
 
-
     /**
      * Remove tag from collection.
      *
@@ -231,6 +229,13 @@ class Recipe
         return $this->comments;
     }
 
+
+    /**
+     *
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -241,6 +246,12 @@ class Recipe
         return $this;
     }
 
+    /**
+     *
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -253,9 +264,4 @@ class Recipe
 
         return $this;
     }
-
-
-
 }
-
-

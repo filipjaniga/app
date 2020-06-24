@@ -41,7 +41,6 @@ class Category
      *
      * @ORM\Column(type="datetime")
      *
-     *
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
@@ -52,7 +51,6 @@ class Category
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
-     *
      *
      * @Gedmo\Timestampable(on="update")
      */
@@ -77,7 +75,6 @@ class Category
      */
     private $title;
 
-
     /**
      * Code.
      *
@@ -98,25 +95,25 @@ class Category
      */
     private $code;
 
-
     /**
      * Recipes.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Recipe[] $recipes Recipes
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Recipe[] Recipes
      *
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\Recipe",
      *     mappedBy="category",
      * )
-     *
      */
     private $recipes;
 
+    /**
+     * Category constructor.
+     */
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
     }
-
 
     /**
      * Getter for Id.
@@ -196,6 +193,11 @@ class Category
         return $this->recipes;
     }
 
+    /**
+     * @param Recipe $recipe
+     *
+     * @return $this
+     */
     public function addRecipe(Recipe $recipe): self
     {
         if (!$this->recipes->contains($recipe)) {
@@ -206,6 +208,11 @@ class Category
         return $this;
     }
 
+    /**
+     * @param Recipe $recipe
+     *
+     * @return $this
+     */
     public function removeRecipe(Recipe $recipe): self
     {
         if ($this->recipes->contains($recipe)) {
@@ -219,11 +226,20 @@ class Category
         return $this;
     }
 
+
+    /**
+     * @return string|null
+     */
     public function getCode(): ?string
     {
         return $this->code;
     }
 
+    /**
+     * @param string $code
+     *
+     * @return $this
+     */
     public function setCode(string $code): self
     {
         $this->code = $code;

@@ -25,13 +25,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user User interface
-     * @param string $newEncodedPassword New password
+     *
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user               User interface
+     * @param string                                              $newEncodedPassword New password
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
         if (!$user instanceof User) {

@@ -5,8 +5,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Recipe;
 use App\Entity\Category;
+use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -41,8 +41,6 @@ class RecipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipe::class);
     }
-
-
 
     /**
      * Query all records.
@@ -94,7 +92,6 @@ class RecipeRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('recipe');
     }
-
 
     /**
      * Delete record.
