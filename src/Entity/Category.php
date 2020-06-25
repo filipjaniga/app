@@ -42,6 +42,8 @@ class Category
      * @ORM\Column(type="datetime")
      *
      * @Gedmo\Timestampable(on="create")
+     *
+     * @Assert\Type("\DateTimeInterface")
      */
     private $createdAt;
 
@@ -53,6 +55,8 @@ class Category
      * @ORM\Column(type="datetime")
      *
      * @Gedmo\Timestampable(on="update")
+     *
+     * @Assert\Type("\DateTimeInterface")
      */
     private $updatedAt;
 

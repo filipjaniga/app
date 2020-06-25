@@ -32,8 +32,8 @@
             </a>
         </p>
 
-        <h1>comments</h1>
-        <a class="btn btn-primary" href="{{ url('comment_create', {id: recipe.id}) }}" title="{{ 'comment_add'|trans }}" role="button">{{ 'comment_add'|trans }}</a>
+        <h1>{{'comments_label'|trans}}</h1>
+        <a class="btn btn-primary" href="{{ url('comment_create', {id: recipe.id}) }}" title="{{ 'comments_add'|trans }}" role="button">{{ 'comments_add'|trans }}</a>
 
 
         {% for comment in recipe.comments %}

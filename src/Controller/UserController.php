@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 /**
  * Class UserController.
@@ -59,6 +61,11 @@ class UserController extends AbstractController
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_password_change",
+     * )
+     *
+     * @IsGranted (
+     *     "EDIT",
+     *     subject="user",
      * )
      */
     public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response

@@ -10,9 +10,9 @@
 
         {% if is_granted('ROLE_ADMIN') %}
         <p>
-        <a href="{{ url('recipe_create') }}" title="{{ 'create_view'|trans }}">
-            {{ 'create_view'|trans }}
-        </a>
+            <a href="{{ url('recipe_create') }}" title="{{ 'action_recipe_create'|trans }}">
+                {{ 'action_recipe_create'|trans }}
+            </a>
         </p>
         {% endif %}
         <div class="navigation text-center">
@@ -50,11 +50,11 @@
                             {{ 'action_view'|trans }}
                         </a>
                         {% if is_granted ('ROLE_ADMIN') %}
-                        <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'delete_view'|trans }}">
-                            {{ 'delete_view'|trans }}
+                        <a href="{{ url('recipe_delete', {id: recipe.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
                         </a>
-                        <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'edit_view'|trans }}">
-                            {{ 'edit_view'|trans }}
+                        <a href="{{ url('recipe_edit', {id: recipe.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
                         </a>
                         {% endif %}
                     </td>
@@ -69,8 +69,8 @@
 
     {% else %}
         <p>
-            <a href="{{ url('recipe_create') }}" title="{{ 'create_view'|trans }}">
-                {{ 'create_view'|trans }}
+            <a href="{{ url('recipe_create') }}" title="{{ 'action_recipe_create'|trans }}">
+                {{ 'action_recipe_create'|trans }}
             </a>
         </p>
         {% include 'default/_single_flash_message.html.twig' with {
